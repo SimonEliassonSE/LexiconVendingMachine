@@ -1,0 +1,15 @@
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.csproj.AssemblyReference.cache
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.GeneratedMSBuildEditorConfig.editorconfig
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.AssemblyInfoInputs.cache
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.AssemblyInfo.cs
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.csproj.CoreCompileInputs.cache
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\bin\Debug\net6.0\LexiconVendingMachine.exe
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\bin\Debug\net6.0\LexiconVendingMachine.deps.json
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\bin\Debug\net6.0\LexiconVendingMachine.runtimeconfig.json
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\bin\Debug\net6.0\LexiconVendingMachine.dll
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\bin\Debug\net6.0\LexiconVendingMachine.pdb
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.dll
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\refint\LexiconVendingMachine.dll
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.pdb
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\LexiconVendingMachine.genruntimeconfig.cache
+L:\C# Projects\LexiconATM\LexiconVendingMachine\LexiconVendingMachine\LexiconVendingMachine\obj\Debug\net6.0\ref\LexiconVendingMachine.dll
