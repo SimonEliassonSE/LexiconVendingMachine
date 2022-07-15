@@ -263,7 +263,7 @@ namespace LexiconVendingMachine.Tests;
         Assert.Equal(expected, actual);
 
     }
-    // kolla så att listan minskar om man väljer att använda 1 object
+                                    
 
 
 }
