@@ -9,14 +9,5 @@ namespace LexiconVendingMachine
     public class Candy : Products
     {
 
-        public override void UseProduct(string use)
-        {
-            Console.WriteLine(use);
-        }
-
-        public override void ExamineProduct(string examine)
-        {
-            Console.WriteLine(examine);
-        }
     }
 }

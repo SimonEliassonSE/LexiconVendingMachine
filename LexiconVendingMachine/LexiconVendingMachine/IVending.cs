@@ -13,10 +13,9 @@ namespace LexiconVendingMachine
             
         }
 
-        int ShowAll()
+        void ShowAll()
         {
-            int something = 0;
-            return something;
+            
         }
 
         int InsertMoney()

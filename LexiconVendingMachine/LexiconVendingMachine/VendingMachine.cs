@@ -8,7 +8,7 @@ namespace LexiconVendingMachine
 {
 
   
-    public class VendingMachine /*: IVending*/
+    public class VendingMachine : IVending
     {
         public readonly int[] denominationArray = new int[11] { 0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 };
         public readonly string[] productIDArray = new string[9] {"sd1", "sd2", "sd3", "sn1", "sn2", "sn3","ca1","ca2","ca3"};        
@@ -125,6 +125,7 @@ namespace LexiconVendingMachine
                               "|   - Contains use function's     |\n" +
                               "| 4. End transaction              |\n" +
                               "|   - Contains money return       |\n" +
+                              "| 0. Shut down Vending machine    |\n" +
                               "|---------------------------------|\n\n" +
                               $"Current funds: {currentWallet} kr\n\n" +
                               "\n Please enter a menu chooise\n");
@@ -134,12 +135,50 @@ namespace LexiconVendingMachine
         {
             switch (input)
             {
+
+                case 0:
+                    {
+                        Console.WriteLine("\nRequest to end vending machine process\n" +
+                                          "Forcing money return process\n");
+                        int money;
+                        Console.WriteLine($"Saldo befor money return {currentWallet} kr");
+                        money = EndTransaction(currentWallet);
+                        currentWallet = money;
+                        Console.WriteLine(currentWallet);
+                        goAgain = false;                        
+                        break;
+                    }
+               
                 case 1:
                     {
+                        bool stopAddingToWallet = true;                       
                         int money;
-                        money = InsertMoney();
-                        currentWallet = currentWallet + money;
-                        
+                        int moneyInput = 0;
+                        while (stopAddingToWallet)
+                        {
+                            do
+                            {
+                                Console.WriteLine("\nPlease insert your money, Acceptebal currency is: 1,2,5,10,20,50,100,200,500,1000" +
+                                    "\nTo stop adding money to the vending machine enter 0");
+                                moneyInput = InputCollection.GetIntFromUser();
+
+                            }
+                            while (!denominationArray.Contains(moneyInput));
+
+                            money = InsertMoney(moneyInput);
+                            
+
+                            if(money == 0)
+                            {
+                                stopAddingToWallet = false;
+                            }
+
+                            else 
+                            {
+                                currentWallet = currentWallet + money;
+                            }
+                        }
+                        Console.WriteLine(currentWallet);
                         break;
                     }
 
@@ -160,9 +199,10 @@ namespace LexiconVendingMachine
                         int money;
                         Console.WriteLine($"Saldo befor money return {currentWallet} kr");
                         money = EndTransaction(currentWallet);
-                        currentWallet = money;
-                        Console.WriteLine(currentWallet);
-                        
+                        currentWallet = money;                        
+                        Console.WriteLine("Press any key to exit money return process");
+                        Console.ReadKey();
+
                         break;
                     }
 
@@ -210,23 +250,26 @@ namespace LexiconVendingMachine
 
                 if (userInput == 1)
                 {
-                    Console.WriteLine($"{result.Examine}");
+                    Console.WriteLine($"\n{result.Examine}\n");
                 }
                 else if (userInput == 2)
                 {
                     Console.WriteLine($"Current saldo {currentWallet}\n" +
                         $"{result.Name} cost: {result.Cost}\n" +
-                        $"How many would you like to buy?");
+                        $"How many would you like to buy?\n");
                     userInput = InputCollection.GetIntFromUser();
                     totalCost = (userInput * result.Cost);
                     if(totalCost <= currentWallet)
                     {
-                        Console.WriteLine($"You have purchased a total of {userInput} {result.Name}");
+                        Console.WriteLine($"\nYou have purchased a total of {userInput} {result.Name}\n");
                         currentWallet = currentWallet - totalCost;
                         for (int i = 0; i < userInput; i++)
                         {
                             itemBag.Add(result);
                         }
+                        Console.WriteLine("\nPress any key to return to main menu");
+                        Console.ReadKey();
+                        userInput = 0;
                     }
 
                     else if (totalCost > currentWallet)
@@ -238,54 +281,89 @@ namespace LexiconVendingMachine
 
                 else if (userInput == 0)
                 {
-                    Console.WriteLine("Going back to main ment");
+                    Console.WriteLine("Going back to main menu");
                 }
             } while ( userInput != 0);
 
-        }
-        public void ShowAll()
-        {
-            foreach (var item in itemBag)
-            {
-                Console.WriteLine($"ID: {item.ID}, Name: {item.Name}, Type:{item.Type}, Cost: {item.Cost} Kr");
-            }
-            Console.ReadKey();
-        }
+            
 
-        public int InsertMoney()
+        }
+        public void ShowAll() // shows al products bought, lets user "use" the product aswell
+                              // Hase a get input (int) from user, to let the user diced to use item or go back to main menu
+                              // if use is choosen user gets in to a loop that loops until 
         {
-            bool stopAddingToWallet = true;
-            bool correctInput = false;            
-            int moneyInput;
-            int wallet = 0;
-
-            while (stopAddingToWallet)
-            {
-                do
+            bool isDead = false;
+            while (!isDead) 
+            { 
+            int index = 0;
+            int input;
+            string userInput;
+                if (itemBag.Count == 0)
                 {
-                    Console.WriteLine("Please insert your money, Acceptebal currency is: 1,2,5,10,20,50,100,200,500,1000" +
-                        "\nTo stop adding money to the vending machine enter 0");
-                    moneyInput = InputCollection.GetIntFromUser();
-
+                    Console.WriteLine("There is no items in your bag to use!\n" +
+                                      "Returning to main menu\n");
+                    isDead = true;
                 }
-                while (!correctInput && !denominationArray.Contains(moneyInput));
+                    Console.WriteLine($"\n Items in bag: {itemBag.Count}\n\n");
+            Console.WriteLine("0. Press [0] to return to main menu\n" +
+                              "1. Press [Any other number] to use an item\n");
+                              input = InputCollection.GetIntFromUser();
 
+                if (input == 0)
+                {
+                    Console.WriteLine("Returning to main menu");
+                    isDead = true;
+                }                
+
+                else {
+                        if (itemBag.Count > 0) 
+                        { 
+                            Console.WriteLine("This is al the items you have bought so far!\n");
+                            foreach (var item in itemBag)
+                            {
+                                Console.WriteLine($"{index}. ID: {item.ID}, Name: {item.Name}, Type:{item.Type}, Cost: {item.Cost} Kr");
+                                index++;
+                            }
+
+                            do 
+                            {
+                                Console.WriteLine("Please enter the ID of the item you wish to use");
+                                userInput = InputCollection.GetStringFromUser();
+                    
+                                if (!productIDArray.Contains(userInput))
+                                {
+                                    Console.WriteLine("The ID you enter is not correct. Try again!");
+                                }    
+
+                            } while (!productIDArray.Contains(userInput));
+
+                            Products result = productsList.Find(x => x.ID == userInput);
+                            Console.WriteLine($"\n{result.Use}");
+                            itemBag.Remove(result);
+                        }
+
+                    else { Console.WriteLine("Your item bag is empty, there is no item left to use "); isDead = true; }
+                     }
+                }
+            }   
+
+        public int InsertMoney(int moneyInput) 
+        {
+            int wallet = 0;
+            
                 if (moneyInput == 0)
                 {
-                    stopAddingToWallet = false;
-
+                    return 0;
                 }
 
                 else
                 {
                     wallet = wallet + moneyInput;
-                    Console.WriteLine(wallet);
                 }
-            }
+                
             return wallet;
-
         }
-        public int EndTransaction(int currentSum)
+        public int EndTransaction(int currentSum) 
         {
             VendingMachine start = new VendingMachine();
 
@@ -307,8 +385,7 @@ namespace LexiconVendingMachine
                 {
 
                     currentSum -= 1000;
-                    remaningChange.Add(index, $"Amount: {tusenLappar} 1000 Bill");
-                    tusenLappar++;
+                    remaningChange.Add(index, $"Amount: {tusenLappar}, 1000 Bill");                    
                     index++;
 
                 }
@@ -317,8 +394,7 @@ namespace LexiconVendingMachine
                 {
                     
                     currentSum -= 500;
-                    remaningChange.Add(index, $"Amount: {femHundraLappar} 500 Bill");
-                    femHundraLappar++;
+                    remaningChange.Add(index, $"Amount: {femHundraLappar}, 500 Bill");                    
                     index++;
                 }
 
@@ -326,8 +402,7 @@ namespace LexiconVendingMachine
                 {
                     
                     currentSum -= 200;
-                    remaningChange.Add(index, $"Amount: {tvåHundraLappar} 200 Bill");
-                    tvåHundraLappar++;
+                    remaningChange.Add(index, $"Amount: {tvåHundraLappar}, 200 Bill");                    
                     index++;
                 }
 
@@ -335,8 +410,7 @@ namespace LexiconVendingMachine
                 {
                     
                     currentSum -= 100;
-                    remaningChange.Add(index, $"Amount: {hundraLappar} 100 Bill");
-                    hundraLappar++;
+                    remaningChange.Add(index, $"Amount: {hundraLappar}, 100 Bill");                   
                     index++;
                 }
 
@@ -344,8 +418,7 @@ namespace LexiconVendingMachine
                 {
                     
                     currentSum -= 50;
-                    remaningChange.Add(index, $"Amount: {femtioLappar} 50 Bill");
-                    femtioLappar++;
+                    remaningChange.Add(index, $"Amount: {femtioLappar}, 50 Bill");                    
                     index++;
                 }
 
@@ -353,8 +426,7 @@ namespace LexiconVendingMachine
                 {
                     
                     currentSum -= 20;
-                    remaningChange.Add(index, $"Amount: {tjugoLappar} 20 Bill");
-                    tjugoLappar++;
+                    remaningChange.Add(index, $"Amount: {tjugoLappar}, 20 Bill");                    
                     index++;
                 }
 
@@ -362,39 +434,34 @@ namespace LexiconVendingMachine
                 {
                    
                     currentSum -= 10;
-                    remaningChange.Add(index, $"Amount: {tioKrona} 10 Coin");
-                    tioKrona++;
+                    remaningChange.Add(index, $"Amount: {tioKrona}, 10 Coin");                    
                     index++;
                 }
                 else if (currentSum >= 5)
                 {
                     
                     currentSum -= 5;
-                    remaningChange.Add(index, $"Amount: {femKrona} 5 Coin");
-                    femKrona++;
+                    remaningChange.Add(index, $"Amount: {femKrona}, 5 Coin");                    
                     index++;
                 }
                 else if (currentSum >= 2)
                 {
                     
                     currentSum -= 2;
-                    remaningChange.Add(index, $"Amount: {tvåKrona} 2 Coin");
-                    tvåKrona++;
+                    remaningChange.Add(index, $"Amount: {tvåKrona}, 2 Coin");                    
                     index++;
                 }
                 else if (currentSum >= 1)
                 {
                     
                     currentSum -= 1;
-                    remaningChange.Add(index, $"Amount: {enKrona} 1 Coin");
-                    enKrona++;
+                    remaningChange.Add(index, $"Amount: {enKrona}, 1 Coin");                   
                     index++;
                 }
-
-                else { Console.WriteLine("Start return of funds"); }
+                                
             } while (currentSum != 0);
 
-            Console.WriteLine("Returned Change's");
+            Console.WriteLine("Returned Change");
 
             foreach(KeyValuePair<int, string> change in remaningChange)
             {
@@ -413,9 +480,9 @@ namespace LexiconVendingMachine
                   enKrona = 0;
                   index = 0;
                   remaningChange.Clear();
-            Console.ReadKey();
+            
             return currentSum;
 
-        }
+        } 
     }
 }
