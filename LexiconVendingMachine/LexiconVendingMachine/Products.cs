@@ -15,5 +15,16 @@ namespace LexiconVendingMachine
         public string Examine { get; set; }
         public string Use { get; set; }
 
+        public virtual void ExamineProduct()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void UseProduct()
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }
+
+

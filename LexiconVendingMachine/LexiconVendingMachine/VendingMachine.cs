@@ -250,7 +250,8 @@ namespace LexiconVendingMachine
 
                 if (userInput == 1)
                 {
-                    Console.WriteLine($"\n{result.Examine}\n");
+                    //Console.WriteLine($"\n{result.Examine}\n");
+                    result.ExamineProduct();
                 }
                 else if (userInput == 2)
                 {
@@ -338,7 +339,8 @@ namespace LexiconVendingMachine
                             } while (!productIDArray.Contains(userInput));
 
                             Products result = productsList.Find(x => x.ID == userInput);
-                            Console.WriteLine($"\n{result.Use}");
+                            result.UseProduct();
+                            //Console.WriteLine($"\n{result.Use}");
                             itemBag.Remove(result);
                         }
 
