@@ -224,6 +224,47 @@ namespace LexiconVendingMachine.Tests;
         //Assert
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void ListInitiationTest() // Checks if list is 9, if it isent 9 it havent been initsialised
+    {
+        // Arrrenge
+        
+        int expected = 9;
+        int actual;
+
+        // Act
+        VendingMachine start = new VendingMachine();
+        start.ProductList();
+        actual =  start.productsList.Count();
+
+
+        //Assert
+        Assert.Equal(expected, actual);
+
+    }
+
+    [Fact]
+    public void denominationArray() // We are dubbel checking that the denominationArray contains what is should contain
+                                    // the 0 is added to ensure that the program can "exit" the loop but wont be caught in the wallet
+    {
+        // Arrrenge
+
+        int[] expected = new int[] { 0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 };
+        int[] actual; 
+
+        // Act
+        VendingMachine start = new VendingMachine();
+        start.ProductList();
+        actual = start.denominationArray;
+
+
+        //Assert
+        Assert.Equal(expected, actual);
+
+    }
     // kolla så att listan minskar om man väljer att använda 1 object
+
+
 }
 
