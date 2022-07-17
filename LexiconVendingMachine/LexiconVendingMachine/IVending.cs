@@ -18,17 +18,17 @@ namespace LexiconVendingMachine
             
         }
 
-        int InsertMoney()
+        int InsertMoney(int currentWallet)
         {
             int wallet = 0;
             return wallet;
             
         }
 
-        int EndTransaction(int money)
+        Dictionary<int, int> EndTransaction(int[] validDenominations, int valueToBeDenominated)
         {
-            int transaction = 0;
-            return transaction; 
+            Dictionary<int, int> myDictionary = new Dictionary<int, int>();
+            return myDictionary;
         }
 
     }
